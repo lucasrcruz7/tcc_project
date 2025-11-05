@@ -1,12 +1,14 @@
-import React from 'react'
+import { useContext } from 'react'
 import USER from '../Img/user (1).png';
 import Header from "./Header/Header";
 import MONITORAMENTO from "../Img/monitoring.png"
 import Lista from "../Img/list.png"
 import CADASTRO from "../Img/Cadastro.png"
 import { Link } from 'react-router-dom';
+import { AuthUserContext } from '../layouts/AuthLayout';
 
 function MainAdmin(){
+  const user = useContext(AuthUserContext);
     return(
         <div className="w-full">
       <Header />
@@ -19,7 +21,7 @@ function MainAdmin(){
             <button class="botao-alterar">Alterar foto</button>
 
             <p><strong>Nome:</strong></p>
-            <input type="text" value="Adiministrador" disabled />
+            <span>{user?.nome}</span>
           </div>
 
           <div className="flex justify-around w-full gap-5 flex-wrap p-10 2xl:justify-center 2xl:gap-50 ">
@@ -35,7 +37,12 @@ function MainAdmin(){
 
             <Link className="itens h-70 w-70" to="/Scanner">
               <img className="imgcode" src={MONITORAMENTO} alt="DOCUMENT" />
-              <p>Scanner</p>
+              <p>Chamada por QRcode</p>
+            </Link>
+
+             <Link className="itens h-70 w-70" to="/PresencaManual">
+              <img className="imgcode" src={MONITORAMENTO} alt="DOCUMENT" />
+              <p>Chamada manual</p>
             </Link>
           </div>
 

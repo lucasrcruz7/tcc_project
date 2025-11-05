@@ -1,7 +1,9 @@
 import { Outlet, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { AuthService } from "../services/authService"
 import { AuthUser } from "../types/interfaces/AuthUser"
+
+export const AuthUserContext = createContext(null);
 
 export function AuthLayout({role}: {role: string}) {
     const navigate = useNavigate()
@@ -32,5 +34,9 @@ export function AuthLayout({role}: {role: string}) {
         return <p>Carregando...</p>
     }
 
-    return <Outlet />
+    return (
+        <AuthUserContext value={user}>
+            <Outlet />
+        </AuthUserContext>
+    )
 }

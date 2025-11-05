@@ -41,6 +41,7 @@ function Monitoramento() {
                                     <th className="px-4 py-2 border border-gray-300">Curso</th>
                                     <th className="px-4 py-2 border border-gray-300">Série</th>
                                     <th className="px-4 py-2 border border-gray-300">RM</th>
+                                     <th className="px-4 py-2 border border-gray-300">Presença</th>
                                     <th className="px-4 py-2 border border-gray-300">Deletar</th>
                                     <th className="px-4 py-2 border border-gray-300">Alterar</th>
                                     <th className="px-4 py-2 border border-gray-300">Salvar</th>
@@ -53,6 +54,7 @@ function Monitoramento() {
                                     <td className="px-4 py-2 border border-gray-200">DS</td>
                                     <td className="px-4 py-2 border border-gray-200">3º ANO</td>
                                     <td className="px-4 py-2 border border-gray-200">00000</td>
+                                    <td className="px-4 py-2 border border-gray-200">100%</td>
                                     <td className="px-4 py-2 border border-gray-200">
                                         <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                             Deletar

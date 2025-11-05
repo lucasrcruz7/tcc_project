@@ -1,15 +1,13 @@
-import React from "react";
+import { useContext } from "react";
 import Header from "./Header/Header";
 import QRCODE from '../Img/qrcode.png';
 import DOCUMENT from '../Img/document.png';
 import USER from '../Img/user (1).png';
 import { Link } from 'react-router-dom';
+import { AuthUserContext } from "../layouts/AuthLayout";
 
 function MainALuno() {
-
-  const user = {
-    name: 'lucas'
-  }
+  const user = useContext(AuthUserContext);
   return (
     <div className="w-full">
       <Header />
@@ -21,10 +19,10 @@ function MainALuno() {
 
             <button class="botao-alterar">Alterar foto</button>
 
-            <p><strong>Nome:</strong>{user.name}</p>
-            <p><strong>RM:</strong> 00000</p>
+            <p><strong>Nome:</strong>{user?.nome || '-'}</p>
+            <p><strong>RM:</strong> {user?.rm || '00000'}</p>
             <p><strong>Habilitação:</strong></p>
-            <input type="text" value="Técnico em TI" disabled />
+            <input type="text" value={user?.curso} disabled />
           </div>
 
           <div className="flex justify-around w-full gap-5 flex-wrap p-10 2xl:justify-center 2xl:gap-50 ">

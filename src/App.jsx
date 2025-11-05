@@ -1,8 +1,5 @@
 import Login from "./pages/Login"
 import React from "react";
-import ReactDOM from "react-dom/client";
-import Header from "./pages/Header/Header";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //PAGES
@@ -14,6 +11,7 @@ import Monitoramento from "./pages/Monitoramento"
 import Cadastro from "./pages/Cadastro"
 import NovaSenha from "./pages/NovaSenha"
 import { AuthLayout } from "./layouts/AuthLayout";
+import  PresencaManual  from "./pages/PresencaManual"
 
 function App() {
   return (
@@ -23,6 +21,7 @@ function App() {
           <Route path="/Cadastro" element={<Cadastro/>} />
           <Route path="/MainAdmin" element={<MainAdmin />} />
           <Route path="/Monitoramento" element={<Monitoramento />} />
+           <Route path="/PresencaManual" element={<PresencaManual />} />
         </Route>
 
         <Route element={<AuthLayout role='aluno'/>}>

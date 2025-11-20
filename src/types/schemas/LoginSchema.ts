@@ -11,7 +11,14 @@ export const AlunoLoginSchema = z.object({
     rm: z.coerce.number()
 })
 
+export const ProfessorLoginSchema = z.object({
+    mode: z.literal("professor"),
+    senha: z.string(),
+    email: z.email("Email inválido"),
+})
+
 export const LoginSchema = z.discriminatedUnion("mode", [
-   AdminLoginSchema ,
-   AlunoLoginSchema
+   AdminLoginSchema,
+   AlunoLoginSchema,
+   ProfessorLoginSchema 
 ]);

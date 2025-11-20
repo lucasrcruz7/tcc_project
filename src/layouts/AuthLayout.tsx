@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react"
 import { AuthService } from "../services/authService"
 import { AuthUser } from "../types/interfaces/AuthUser"
 
-export const AuthUserContext = createContext(null);
+export const AuthUserContext = createContext<AuthUser | null>(null);
 
 export function AuthLayout({role}: {role: string}) {
     const navigate = useNavigate()
@@ -35,8 +35,8 @@ export function AuthLayout({role}: {role: string}) {
     }
 
     return (
-        <AuthUserContext value={user}>
+        <AuthUserContext.Provider value={user}>
             <Outlet />
-        </AuthUserContext>
+        </AuthUserContext.Provider>
     )
 }

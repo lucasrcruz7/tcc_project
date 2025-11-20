@@ -6,12 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {Login as LoginType} from '../types/Login'
 import { AuthAdminService } from '../services/admin/authAdminService';
 import { AuthAlunoService } from '../services/aluno/authAlunoService';
+import { AuthProfessorService } from '../services/professor/authProfessorService';
 
 
 const Login = () => {
 
    const authAdminService = new AuthAdminService()
-   const authAlunoService = new AuthAlunoService
+   const authAlunoService = new AuthAlunoService()
+   const authProfessorService = new AuthProfessorService()
 
    const {
       register,
@@ -35,10 +37,17 @@ const Login = () => {
          }).catch((error) => console.log('DEU ERRO', error.message) )
       }
 
-        if(data.mode === 'aluno'){
+      if(data.mode === 'aluno'){
          authAlunoService.login(data).then((data) => {
             localStorage.setItem('token', data.token)
             navigate('/MainAluno')
+         }).catch((error) => console.log('DEU ERRO', error.message) )
+      }
+
+      if(data.mode === 'professor'){
+         authProfessorService.login(data).then((data) => {
+            localStorage.setItem('token', data.token)
+            navigate('/MainProfessor')
          }).catch((error) => console.log('DEU ERRO', error.message) )
       }
 
@@ -62,26 +71,26 @@ const Login = () => {
                      >
                         <option value='aluno'>ALUNO</option>
                         <option value='admin'>ADMINISTRADOR</option>
+                        <option value='professor'>PROFESSOR</option>
                      </select>
                   </div>
 
                </div>
 
-               {mode === 'admin' ? <div className="text-left">
-                  <label className="text-sm font-medium">Email</label>
-                  <input
-                     {...register("email")}
-                     className="w-full mt-1 border border-gray-300 rounded px-2 py-1 text-sm"
-                  />
-               </div>
-                  : <div className="text-left">
+               {mode === 'aluno' ? <div className="text-left">
                      <label className="text-sm font-medium">RM:</label>
                      <input
                         {...register("rm")}
                         type="number"
                         className="w-full mt-1 border border-gray-300 rounded px-2 py-1 text-sm"
                      />
-                  </div>}
+                  </div> : <div className="text-left">
+                  <label className="text-sm font-medium">Email</label>
+                  <input
+                     {...register("email")}
+                     className="w-full mt-1 border border-gray-300 rounded px-2 py-1 text-sm"
+                  />
+               </div>}
 
                <div className="text-left">
                   <label className="text-sm font-medium">Senha:</label>

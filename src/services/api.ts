@@ -35,7 +35,7 @@ export class Api {
         })
     }
 
-    put(url: string, body: BodyInit){
+    put(url: string, body: object){
         return this.call(url, {
             method: 'put',
             body: JSON.stringify(body),

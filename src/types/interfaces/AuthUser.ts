@@ -1,3 +1,3 @@
 export interface AuthUser{
-    role: 'admin' | 'aluno'
+    role: 'admin' | 'aluno' | 'professor'
 }

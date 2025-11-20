@@ -27,22 +27,22 @@ function MainAdmin(){
           <div className="flex justify-around w-full gap-5 flex-wrap p-10 2xl:justify-center 2xl:gap-50 ">
             <Link className="itens h-70 w-70" to="/Cadastro">
               <img className="imgcode" src={CADASTRO} alt="QR Code" />
-              <p>Cadastro</p>
+              <p>Cadastro de Aluno</p>
             </Link>
 
-            <Link className="itens h-70 w-70" to="/Monitoramento">
+            <Link className="itens h-70 w-70" to="/ListagemAlunos">
               <img className="imgcode" src={Lista} alt="DOCUMENT" />
-              <p>Monitoramento</p>
+              <p>Listagem dos Alunos</p>
             </Link> 
 
-            <Link className="itens h-70 w-70" to="/Scanner">
+            <Link className="itens h-70 w-70" to="/CadastroProfessor">
               <img className="imgcode" src={MONITORAMENTO} alt="DOCUMENT" />
-              <p>Chamada por QRcode</p>
+              <p>Cadastro de Professor</p>
             </Link>
 
-             <Link className="itens h-70 w-70" to="/PresencaManual">
-              <img className="imgcode" src={MONITORAMENTO} alt="DOCUMENT" />
-              <p>Chamada manual</p>
+            <Link className="itens h-70 w-70" to="/ListagemProfessores">
+              <img className="imgcode" src={Lista} alt="DOCUMENT" />
+              <p>Listagem dos Professores</p>
             </Link>
           </div>
 

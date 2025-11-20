@@ -10,3 +10,12 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+### A fazer
+- Ver sobre mudar a serie e curso
+- Colocar o formulário do cadastro de aluno em um componente separado e implementar ele no modal de update do aluno
+- Na lista de alunos, mostrar a porcentagem de presença
+- Chamada manual
+- Criação do QR code pelo aluno
+- Verificação do QR code
+- Trazer todas as informações de presença no aluno

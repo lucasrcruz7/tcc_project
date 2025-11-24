@@ -10,11 +10,12 @@ import MainAdmin from "./pages/MainAdmin";
 import MainProfessor from "./pages/MainProfessor";
 import Cadastro from "./pages/Cadastro"
 import CadastroProfessor from "./pages/CadastroProfessor"
-import NovaSenha from "./pages/NovaSenha"
 import { AuthLayout } from "./layouts/AuthLayout";
 import  PresencaManual  from "./pages/PresencaManual"
 import ListagemAlunos from "./pages/ListagemAlunos";
 import ListagemProfessores from "./pages/ListagemProfessores";
+import { Scanner } from "./pages/Scanner";
+
 
 function App() {
   return (
@@ -37,10 +38,11 @@ function App() {
         <Route element={<AuthLayout role='professor'/>}>
           <Route path="/MainProfessor" element={<MainProfessor />} />
           <Route path="/PresencaManual" element={<PresencaManual />} />
+          <Route path="/Scanner" element={<Scanner />} />
         </Route>
 
         <Route path="/" element={<Login />} />
-        <Route path="/NovaSenha" element={<NovaSenha/>} />
+     
       </Routes>
     </BrowserRouter>
 

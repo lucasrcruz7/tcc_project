@@ -88,7 +88,7 @@ export default function PresencaManual() {
     setLoading(true);
     try {
       const promises = Object.entries(presencas).map(([alunoId, presente]) =>
-        presencaService.registrarManual({ alunoId, data, presente })
+        presencaService.registrarManual({ alunoId, data, presente, turma, serie, curso })
       );
 
       await Promise.all(promises);
@@ -217,7 +217,7 @@ export default function PresencaManual() {
         <button
           onClick={registrarPresencas}
           disabled={loading}
-          className="mt-6 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
+          className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition disabled:opacity-50"
         >
           {loading ? 'Registrando...' : 'Registrar Presenças'}
         </button>

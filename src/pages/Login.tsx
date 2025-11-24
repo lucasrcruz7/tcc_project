@@ -106,11 +106,6 @@ const Login = () => {
                      </p>}
                </div>
 
-
-               <Link className="text-green-600 text-sm hover:underline block mt-1 text-left" to="/NovaSenha">
-                  <p>Solicitar nova senha</p>
-               </Link>
-
                <button
                   type="submit"
                   className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition-all"

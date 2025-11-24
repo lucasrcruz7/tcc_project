@@ -20,4 +20,12 @@ export class PresencaService {
     getRelatorioPresenca() {
         return new Api().get('presenca/relatorio');
     }
+
+    registrarToken(token: string) {
+        return new Api().post('presenca/registrar-token', { token });
+    }
+
+    iniciarChamada(dados: { turma: string; serie: string; curso: string }) {
+        return new Api().post('presenca/iniciar-chamada', dados);
+    }
 }

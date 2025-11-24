@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Header from "./Header/Header";
 import USER from '../Img/user (1).png';
 import { PresencaService } from "../services/presencaService";
+import { AuthUserContext } from "../layouts/AuthLayout";
 
 function Faltas() {
+  const user = useContext(AuthUserContext);
   const [relatorio, setRelatorio] = useState(null);
   const [loading, setLoading] = useState(true);
   const presencaService = new PresencaService();
@@ -22,37 +24,35 @@ function Faltas() {
   const faltasPermitidas = relatorio?.faltasPermitidas || Math.floor(totalAulas * 0.25);
 
   return (
-    <div>
+    <div className="w-full min-h-screen bg-gray-50">
       <Header />
-      <main className="main p-12 lg:p-24 flex justify-between gap-2">
+      <main className="p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-white rounded-lg shadow-md p-6 flex items-center gap-4">
+              <img className="w-16 h-16 sm:w-20 sm:h-20" src={USER} alt="USER" />
+              <div>
+                <p className="text-base sm:text-lg"><strong>Nome:</strong> {user?.nome || '-'}</p>
+                <p className="text-base sm:text-lg"><strong>RM:</strong> {user?.rm || '00000'}</p>
+              </div>
+            </div>
 
-        {/* Card existente */}
-        <div className="card">
-          <img className="imgcode" src={USER} alt="USER" />
-          <button className="botao-alterar">Alterar foto</button>
-
-          <p><strong>Nome:</strong> João Silva</p>
-          <p><strong>RM:</strong> 00000</p>
-          <p><strong>Habilitação:</strong></p>
-          <input type="text" value="Técnico em TI" disabled />
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-xl font-bold mb-4">Minhas Presenças</h2>
+              {loading ? (
+                <p className="text-gray-600">Carregando...</p>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm sm:text-base"><strong>Total de aulas:</strong> {totalAulas}</p>
+                  <p className="text-sm sm:text-base"><strong>Presenças:</strong> {presencas}</p>
+                  <p className="text-sm sm:text-base"><strong>Faltas:</strong> {faltas}</p>
+                  <p className="text-sm sm:text-base"><strong>Frequência:</strong> {frequencia}%</p>
+                  <p className="text-sm sm:text-base"><strong>Faltas permitidas:</strong> {faltasPermitidas}</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        {/* Nova seção de presença */}
-        <div className="card p-6 flex flex-col gap-4 bg-gray-100 rounded-lg shadow-md">
-          <h2 className="text-xl font-bold mb-4">Minhas Presenças</h2>
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            <>
-              <p><strong>Total de aulas:</strong> {totalAulas}</p>
-              <p><strong>Presenças:</strong> {presencas}</p>
-              <p><strong>Faltas:</strong> {faltas}</p>
-              <p><strong>Frequência:</strong> {frequencia}%</p>
-              <p><strong>Faltas permitidas:</strong> {faltasPermitidas}</p>
-            </>
-          )}
-        </div>
-
       </main>
     </div>
   )

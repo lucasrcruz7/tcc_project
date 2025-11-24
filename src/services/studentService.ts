@@ -21,4 +21,8 @@ export class StudentService {
     reactivate(id: string) {
         return new Api().put(`alunos/${id}`, { ativo: true });
     }
+
+    getAttendancePercentage(id: string) {
+        return new Api().get(`alunos/${id}/presenca-porcentagem`);
+    }
 }

@@ -174,6 +174,7 @@ function ListagemAlunos() {
                                         <th className="px-4 py-2 border border-gray-300">Série</th>
                                         <th className="px-4 py-2 border border-gray-300">Turma</th>
                                         <th className="px-4 py-2 border border-gray-300">RM</th>
+                                        <th className="px-4 py-2 border border-gray-300">Presença</th>
                                         <th className="px-4 py-2 border border-gray-300">Status</th>
                                         <th className="px-4 py-2 border border-gray-300">Ações</th>
                                     </tr>
@@ -186,6 +187,9 @@ function ListagemAlunos() {
                                             <td className="px-4 py-2 border border-gray-200">{aluno.serie}</td>
                                             <td className="px-4 py-2 border border-gray-200">{aluno.turma}</td>
                                             <td className="px-4 py-2 border border-gray-200">{aluno.rm}</td>
+                                            <td className="px-4 py-2 border border-gray-200">
+                                                <span className="font-semibold">{aluno.porcentagemPresenca ?? '-'}%</span>
+                                            </td>
                                             <td className="px-4 py-2 border border-gray-200">
                                                 <span className={`px-2 py-1 rounded text-xs font-semibold ${aluno.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                                     {aluno.ativo ? 'Ativo' : 'Desativado'}
@@ -242,17 +246,6 @@ function ListagemAlunos() {
                                     type="text"
                                     value={alunoEditando.nome}
                                     onChange={(e) => setAlunoEditando({...alunoEditando, nome: e.target.value})}
-                                    className="mt-1 w-full p-2 border border-gray-300 rounded"
-                                    required
-                                />
-                            </label>
-
-                            <label className="block">
-                                <span className="font-semibold">Email:</span>
-                                <input
-                                    type="email"
-                                    value={alunoEditando.email}
-                                    onChange={(e) => setAlunoEditando({...alunoEditando, email: e.target.value})}
                                     className="mt-1 w-full p-2 border border-gray-300 rounded"
                                     required
                                 />

@@ -9,35 +9,28 @@ import { AuthUserContext } from "../layouts/AuthLayout";
 function MainProfessor() {
   const user = useContext(AuthUserContext);
   return (
-    <div className="w-full">
+    <div className="w-full min-h-screen bg-gray-50">
       <Header />
-      <div >
-        <main className="main p-12 lg:p-24">
-          <div className="card">
-
-            <img className="imgcode" src={USER} alt="USER" />
-
-            <button class="botao-alterar">Alterar foto</button>
-
-            <p><strong>Nome:</strong>{user?.nome || '-'}</p>
-            <p><strong>Habilitação:</strong></p>
-            <input className="bg-white rounded-4xl" type="text"value={("Professor")} disabled />
+      <main className="p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md p-6 mb-8 flex items-center gap-4">
+            <img className="w-16 h-16 sm:w-20 sm:h-20" src={USER} alt="USER" />
+            <p className="text-base sm:text-lg"><strong>Nome:</strong> {user?.nome || '-'}</p>
           </div>
 
-          <div className="flex justify-around w-full gap-5 flex-wrap p-10 2xl:justify-center 2xl:gap-50 ">
-            <Link className="itens h-70 w-70" to="/QRcode">
-              <img className="imgcode" src={QRCODE} alt="QR Code" />
-              <p>QRCODE</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/Scanner">
+              <img className="w-16 h-16 sm:w-20 sm:h-20" src={QRCODE} alt="QR Code" />
+              <p className="text-center text-sm sm:text-base font-medium">QRCODE</p>
             </Link>
 
-            <Link className="itens h-70 w-70" to="/PresencaManual">
-              <img className="imgcode" src={MONITORAMENTO} alt="DOCUMENT" />
-              <p>Chamada manual</p>
+            <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/PresencaManual">
+              <img className="w-16 h-16 sm:w-20 sm:h-20" src={MONITORAMENTO} alt="DOCUMENT" />
+              <p className="text-center text-sm sm:text-base font-medium">Chamada manual</p>
             </Link>
           </div>
-
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

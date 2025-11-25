@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header/Header';
 import { ProfessorListagemService } from '../services/professor/professorListagemService';
+import { useToastMessage } from '../hooks/toastMessage';
 
 function ListagemProfessores() {
     const [professores, setProfessores] = useState([]);
@@ -10,13 +11,15 @@ function ListagemProfessores() {
     const [professorEditando, setProfessorEditando] = useState(null);
     const service = new ProfessorListagemService();
 
+    const toast = useToastMessage()
+
     const carregarProfessores = async (nome = '') => {
         setLoading(true);
         try {
             const data = await service.listar(nome);
             setProfessores(data);
         } catch (error) {
-            alert('Erro ao carregar professores');
+            toast.error("Erro ao carregar Professores")
         } finally {
             setLoading(false);
         }
@@ -39,10 +42,10 @@ function ListagemProfessores() {
         if (!confirm('Tem certeza que deseja excluir este professor?')) return;
         try {
             await service.delete(id);
-            alert('Professor excluído com sucesso!');
+            toast.success("Professor excluído com sucesso")
             carregarProfessores(busca);
         } catch (error) {
-            alert(error.message || 'Erro ao excluir professor');
+           toast.error("Erro ao excluir professor")
         }
     };
 
@@ -50,12 +53,12 @@ function ListagemProfessores() {
         e.preventDefault();
         try {
             await service.update(professorEditando.id, professorEditando);
-            alert('Professor atualizado com sucesso!');
+            toast.success("Professor atualizado com sucesso")
             setModalAberto(false);
             setProfessorEditando(null);
             carregarProfessores(busca);
         } catch (error) {
-            alert(error.message || 'Erro ao atualizar professor');
+           toast.error("Erro ao atualizar professor")
         }
     };
 

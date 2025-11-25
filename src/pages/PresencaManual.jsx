@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { StudentService } from "../services/studentService";
 import { PresencaService } from "../services/presencaService";
+import { useToastMessage } from "../hooks/toastMessage";
 
 export default function PresencaManual() {
   const [alunos, setAlunos] = useState([]);
@@ -15,6 +16,8 @@ export default function PresencaManual() {
 
   const studentService = new StudentService();
   const presencaService = new PresencaService();
+  
+  const toast = useToastMessage();
 
   useEffect(() => {
     carregarTurmasDisponiveis();
@@ -75,7 +78,7 @@ export default function PresencaManual() {
 
   const registrarPresencas = async () => {
     if (Object.keys(presencas).length === 0) {
-      alert('Marque a presença de pelo menos um aluno');
+      toast.error("Nenhuma presença selecionada");
       return;
     }
 
@@ -90,11 +93,11 @@ export default function PresencaManual() {
       );
 
       await Promise.all(promises);
-      alert('Presenças registradas com sucesso!');
+      toast.success("Presenças registradas com sucesso");
       setPresencas({});
     } catch (error) {
       console.error('Erro ao registrar presenças:', error);
-      alert(`Erro ao registrar presenças: ${error.message || error}`);
+      toast.error("Erro ao registrar presenças: " + error.message);
     } finally {
       setLoading(false);
     }

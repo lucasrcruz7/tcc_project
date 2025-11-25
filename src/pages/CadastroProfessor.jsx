@@ -18,10 +18,10 @@ function CadastroProfessor() {
     const onSubmit = async (data) => {
         try {
             await new ProfessorCadastroService().cadastrar(data);
-            toast.success('Login realizado com sucesso!')
+            toast.success('Cadastro realizado com sucesso!')
             reset();
         } catch (error) {
-            toast.success('Login realizado com sucesso!')
+            toast.success('Cadastro realizado com sucesso!')
         }
     };
 

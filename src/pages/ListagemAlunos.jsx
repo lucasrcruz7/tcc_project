@@ -36,10 +36,9 @@ function ListagemAlunos() {
         fetchAlunos();
     }, []);
 
-    const handleFiltrar = () => {
-        let alunosFiltrados = alunos;
+    useEffect(() => {
         fetchAlunos(curso, serie, statusFiltro);
-    };
+    }, [curso, serie, turma, statusFiltro]);
 
     const handleLimpar = () => {
         setCurso('');
@@ -147,15 +146,8 @@ function ListagemAlunos() {
                         </select>
 
                         <button
-                            onClick={handleFiltrar}
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                        >
-                            Filtrar
-                        </button>
-
-                        <button
                             onClick={handleLimpar}
-                            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+                            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700"
                         >
                             Limpar
                         </button>

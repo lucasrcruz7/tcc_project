@@ -179,15 +179,7 @@ export function Scanner() {
                         
                         <div id="reader" className="mb-4"></div>
                         
-                        {scanResult && (
-                            <div className="bg-green-100 border border-green-400 p-4 rounded mb-4">
-                                <h2 className="font-bold text-green-800">Presença Registrada!</h2>
-                                <p>Nome: {scanResult.nome}</p>
-                                <p>RM: {scanResult.rm}</p>
-                                <p>Curso: {scanResult.curso}</p>
-                                <p>Série: {scanResult.serie} - Turma: {scanResult.turma}</p>
-                            </div>
-                        )}
+                      
                         
                         {error && (
                             <div className="bg-red-100 border border-red-400 p-4 rounded text-red-700 mb-4">

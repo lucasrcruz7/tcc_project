@@ -12,10 +12,6 @@ Currently, two official plugins are available:
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 ### A fazer
-- Verificação do QR code
-    - Tirar a mensagem verde em baixo do qrcode
-- Erro ao fazer a chamada manual
-    - Arrumar o filtro de turma
 - Email para o responsável do aluno ao concluir a presença
 
 - Mostrar um toast com a mensagens de erros do backend (tipo quando a senha estiver errada ao fazer login)

@@ -34,12 +34,10 @@ export default function PresencaManual() {
     try {
       const response = await studentService.getAll(curso, serie, "true");
       const alunos = response || [];
-      const turmasDinamicas = [...new Set(alunos.map(aluno => aluno.turma))].filter(Boolean);
-      const turmasFixas = ["Manhã", "Noite"];
-      const todasTurmas = [...new Set([...turmasFixas, ...turmasDinamicas])];
-      setTurmasDisponiveis(todasTurmas);
+      const turmasUnicas = [...new Set(alunos.map(aluno => aluno.turma).filter(Boolean))];
+      setTurmasDisponiveis(turmasUnicas.sort());
       
-      if (todasTurmas.length > 0 && !todasTurmas.includes(turma)) {
+      if (turmasUnicas.length > 0 && !turmasUnicas.includes(turma)) {
         setTurma("");
       }
     } catch (error) {

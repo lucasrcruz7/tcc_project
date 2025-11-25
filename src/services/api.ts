@@ -1,4 +1,4 @@
-const baseUrl = 'https://5ct4s0cl-3333.brs.devtunnels.ms'
+const baseUrl = 'http://localhost:3333'
 
 export class Api {
 

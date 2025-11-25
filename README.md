@@ -13,10 +13,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ### A fazer
 - Verificação do QR code
-    - deixar mostrando os alunos que já estão presentes
-    - Fazer um botão de voltar e finalizar chamada (dois fazem a mesma coisa)
+    - Tirar a mensagem verde em baixo do qrcode
+- Erro ao fazer a chamada manual
+    - Arrumar o filtro de turma
 - Email para o responsável do aluno ao concluir a presença
-- Alterar senha
 
 - Mostrar um toast com a mensagens de erros do backend (tipo quando a senha estiver errada ao fazer login)
 - Validação no backend

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AlunoCadastroSchema } from '../types/schemas/AlunoCadastroSchema';
 import { AlunoCadastroService } from '../services/aluno/alunoCadastroService';
 import { IMaskInput } from "react-imask";
+import { useToastMessage } from '../hooks/toastMessage';
 
 function Cadastro() {
     const {
@@ -15,14 +16,15 @@ function Cadastro() {
     } = useForm({
         resolver: zodResolver(AlunoCadastroSchema)
     });
-
+    const toast = useToastMessage()
+    
     const onSubmit = async (data) => {
         try {
             await new AlunoCadastroService().cadastrar(data);
-            alert('Aluno cadastrado com sucesso!');
+            toast.success('Cadastro realizado com sucesso!')
             reset();
         } catch (error) {
-            alert(error.message || 'Erro ao cadastrar.');
+           (error) => toast.error(error.message)
         }
     };
 

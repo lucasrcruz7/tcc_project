@@ -1,12 +1,13 @@
 import SIMPE from '../Img/SIMPE.png'
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../types/schemas/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {Login as LoginType} from '../types/Login'
+import { Login as LoginType } from '../types/Login'
 import { AuthAdminService } from '../services/admin/authAdminService';
 import { AuthAlunoService } from '../services/aluno/authAlunoService';
 import { AuthProfessorService } from '../services/professor/authProfessorService';
+import { useToastMessage } from '../hooks/toastMessage';
 
 
 const Login = () => {
@@ -24,31 +25,36 @@ const Login = () => {
    } = useForm({
       resolver: zodResolver(LoginSchema)
    })
-
+ 
    const mode = watch('mode')
 
    const navigate = useNavigate()
+   
+   const toast = useToastMessage()
 
    const onSubmit = (data: LoginType) => {
-      if(data.mode === 'admin'){
+      if (data.mode === 'admin') {
          authAdminService.login(data).then((data) => {
             localStorage.setItem('token', data.token)
             navigate('/MainAdmin')
-         }).catch((error) => console.log('DEU ERRO', error.message) )
+            toast.success('Login realizado com sucesso!')
+         }).catch((error) => toast.error(error.message))
       }
 
-      if(data.mode === 'aluno'){
+      if (data.mode === 'aluno') {
          authAlunoService.login(data).then((data) => {
             localStorage.setItem('token', data.token)
             navigate('/MainAluno')
-         }).catch((error) => console.log('DEU ERRO', error.message) )
+            toast.success('Login realizado com sucesso!')
+         }).catch((error) => toast.error(error.message))
       }
 
-      if(data.mode === 'professor'){
+      if (data.mode === 'professor') {
          authProfessorService.login(data).then((data) => {
             localStorage.setItem('token', data.token)
             navigate('/MainProfessor')
-         }).catch((error) => console.log('DEU ERRO', error.message) )
+            toast.success('Login realizado com sucesso!')
+         }).catch((error) => toast.error(error.message))
       }
 
    }
@@ -78,13 +84,13 @@ const Login = () => {
                </div>
 
                {mode === 'aluno' ? <div className="text-left">
-                     <label className="text-sm font-medium">RM:</label>
-                     <input
-                        {...register("rm")}
-                        type="number"
-                        className="w-full mt-1 border border-gray-300 rounded px-2 py-1 text-sm"
-                     />
-                  </div> : <div className="text-left">
+                  <label className="text-sm font-medium">RM:</label>
+                  <input
+                     {...register("rm")}
+                     type="number"
+                     className="w-full mt-1 border border-gray-300 rounded px-2 py-1 text-sm"
+                  />
+               </div> : <div className="text-left">
                   <label className="text-sm font-medium">Email</label>
                   <input
                      {...register("email")}

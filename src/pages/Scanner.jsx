@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { PresencaService } from "../services/presencaService";
 import { StudentService } from "../services/studentService";
+import { useToastMessage } from "../hooks/toastMessage";
+import { set } from "zod";
 
 export function Scanner() {
     const [scanResult, setScanResult] = useState(null);
@@ -12,12 +14,21 @@ export function Scanner() {
     const [turma, setTurma] = useState("");
     const [turmasDisponiveis, setTurmasDisponiveis] = useState([]);
     const [scanning, setScanning] = useState(false);
+    const [alunos, setAlunos] = useState([]);
     const presencaService = new PresencaService();
     const studentService = new StudentService();
+    const toast = useToastMessage();
 
     useEffect(() => {
         carregarTurmasDisponiveis();
     }, [curso, serie]);
+
+    const resetChamada = () => {
+        setChamadaIniciada(false)
+        setError(null)
+        setAlunos([])
+        setScanning(false)
+    }
 
     const carregarTurmasDisponiveis = async () => {
         if (!curso || !serie) {
@@ -48,6 +59,7 @@ export function Scanner() {
         try {
             const response = await presencaService.iniciarChamada({ turma, serie, curso });
             console.log('Resposta:', response);
+            setAlunos(response.alunos || []);
             setChamadaIniciada(true);
             setError(null);
         } catch (err) {
@@ -60,6 +72,10 @@ export function Scanner() {
         try {
             const response = await presencaService.registrarToken(token);
             setScanResult(response.student);
+            setAlunos(prev => prev.map(aluno => 
+                aluno.rm === response.student.rm ? { ...aluno, presente: true } : aluno
+            ));
+            toast.success(`Presença registrada: ${response.student.nome}`);
             setError(null);
             setTimeout(() => setScanResult(null), 3000);
         } catch (err) {
@@ -68,9 +84,9 @@ export function Scanner() {
         }
     };
 
-    useEffect(() => {
-        if (chamadaIniciada && !scanning) {
-            setScanning(true);
+  useEffect(() => {
+    if (chamadaIniciada && !scanning) {
+       setScanning(true);
             const html5QrCode = new Html5Qrcode("reader");
             const config = { fps: 10, qrbox: { width: 250, height: 250 } };
             
@@ -78,13 +94,19 @@ export function Scanner() {
                 { facingMode: "environment" },
                 config,
                 (decodedText) => registrarPresenca(decodedText)
-            );
+            ).catch((err) => {
+                console.error('Erro ao iniciar a câmera:', err);
+                setError('Erro ao iniciar a câmera');
+            })
 
-            return () => {
+        return () => {
+            if (html5QrCode.isScanning) {
                 html5QrCode.stop().catch(() => {});
-            };
-        }
-    }, [chamadaIniciada]);
+            }
+        };
+    }
+}, [chamadaIniciada]);
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
@@ -148,10 +170,17 @@ export function Scanner() {
                     </form>
                 ) : (
                     <>
+                        <button 
+                            onClick={() => resetChamada()} 
+                            className="w-full bg-gray-600 text-white py-2 rounded-xl hover:bg-gray-700 transition mb-4"
+                        >
+                            Voltar
+                        </button>
+                        
                         <div id="reader" className="mb-4"></div>
                         
                         {scanResult && (
-                            <div className="bg-green-100 border border-green-400 p-4 rounded">
+                            <div className="bg-green-100 border border-green-400 p-4 rounded mb-4">
                                 <h2 className="font-bold text-green-800">Presença Registrada!</h2>
                                 <p>Nome: {scanResult.nome}</p>
                                 <p>RM: {scanResult.rm}</p>
@@ -161,10 +190,40 @@ export function Scanner() {
                         )}
                         
                         {error && (
-                            <div className="bg-red-100 border border-red-400 p-4 rounded text-red-700">
+                            <div className="bg-red-100 border border-red-400 p-4 rounded text-red-700 mb-4">
                                 {error}
                             </div>
                         )}
+
+                        <div className="mt-6">
+                            <h2 className="text-xl font-bold mb-4">Lista de Alunos</h2>
+                            <div className="space-y-2">
+                                {alunos.map(aluno => (
+                                    <div 
+                                        key={aluno.rm} 
+                                        className={`p-3 rounded-lg border ${
+                                            aluno.presente 
+                                                ? 'bg-green-50 border-green-300' 
+                                                : 'bg-gray-50 border-gray-300'
+                                        }`}
+                                    >
+                                        <div className="flex justify-between items-center">
+                                            <div>
+                                                <p className="font-semibold">{aluno.nome}</p>
+                                                <p className="text-sm text-gray-600">RM: {aluno.rm}</p>
+                                            </div>
+                                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                                aluno.presente 
+                                                    ? 'bg-green-200 text-green-800' 
+                                                    : 'bg-gray-200 text-gray-800'
+                                            }`}>
+                                                {aluno.presente ? 'Presente' : 'Ausente'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </>
                 )}
             </div>

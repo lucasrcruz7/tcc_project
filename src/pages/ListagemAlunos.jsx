@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header/Header';
 import { StudentService } from '../services/studentService';
+import { useToastMessage } from '../hooks/toastMessage';
 
 function ListagemAlunos() {
     const [alunos, setAlunos] = useState([]);
@@ -48,14 +49,16 @@ function ListagemAlunos() {
         fetchAlunos();
     };
 
+    const toast = useToastMessage()
+
     const handleDesativar = async (id) => {
         if (!confirm('Tem certeza que deseja desativar este aluno?')) return;
         try {
             await studentService.delete(id);
-            alert('Aluno desativado com sucesso!');
+            toast.success('Aluno desativado com sucesso!');
             fetchAlunos(curso, serie, statusFiltro);
         } catch (error) {
-            alert(error.message || 'Erro ao desativar aluno.');
+            toast.error('Erro ao desativar aluno!')
         }
     };
 
@@ -63,10 +66,10 @@ function ListagemAlunos() {
         if (!confirm('Deseja reativar este aluno?')) return;
         try {
             await studentService.reactivate(id);
-            alert('Aluno reativado com sucesso!');
+            toast.success('Aluno reativado com sucesso!')
             fetchAlunos(curso, serie, statusFiltro);
         } catch (error) {
-            alert(error.message || 'Erro ao reativar aluno.');
+            toast.error('Erro ao reativar aluno')
         }
     };
 
@@ -79,12 +82,12 @@ function ListagemAlunos() {
         e.preventDefault();
         try {
             await studentService.update(alunoEditando.id, alunoEditando);
-            alert('Aluno atualizado com sucesso!');
+            toast.success('Aluno atualizado com sucesso!')
             setModalAberto(false);
             setAlunoEditando(null);
             fetchAlunos(curso, serie, statusFiltro);
         } catch (error) {
-            alert(error.message || 'Erro ao atualizar aluno.');
+            toast.error('Erro ao atualizar aluno')
         }
     };
 

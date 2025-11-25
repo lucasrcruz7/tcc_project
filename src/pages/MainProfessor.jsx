@@ -28,6 +28,11 @@ function MainProfessor() {
               <img className="w-16 h-16 sm:w-20 sm:h-20" src={MONITORAMENTO} alt="DOCUMENT" />
               <p className="text-center text-sm sm:text-base font-medium">Chamada manual</p>
             </Link>
+
+            <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/ProfessorAlterarSenha">
+              <span className="text-4xl sm:text-5xl">🔒</span>
+              <p className="text-center text-sm sm:text-base font-medium">ALTERAR SENHA</p>
+            </Link>
           </div>
         </div>
       </main>

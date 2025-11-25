@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfessorCadastroSchema } from '../types/schemas/ProfessorCadastroSchema';
 import { ProfessorCadastroService } from '../services/professor/professorCadastroService';
+import { useToastMessage } from '../hooks/toastMessage';
 
 function CadastroProfessor() {
     const {
@@ -13,14 +14,14 @@ function CadastroProfessor() {
     } = useForm({
         resolver: zodResolver(ProfessorCadastroSchema)
     });
-
+    const toast = useToastMessage()
     const onSubmit = async (data) => {
         try {
             await new ProfessorCadastroService().cadastrar(data);
-            alert('Professor cadastrado com sucesso!');
+            toast.success('Login realizado com sucesso!')
             reset();
         } catch (error) {
-            alert(error.message || 'Erro ao cadastrar.');
+            toast.success('Login realizado com sucesso!')
         }
     };
 

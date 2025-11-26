@@ -17,6 +17,7 @@ export function Scanner() {
     const [alunos, setAlunos] = useState([]);
     const presencaService = new PresencaService();
     const studentService = new StudentService();
+    const tokensPresentes = new Map()
     const toast = useToastMessage();
 
     useEffect(() => {
@@ -69,13 +70,16 @@ export function Scanner() {
     };
 
     const registrarPresenca = async (token) => {
+        if (tokensPresentes.has(token)) return
+
         try {
+            tokensPresentes.set(token, true);
             const response = await presencaService.registrarToken(token);
             setScanResult(response.student);
             setAlunos(prev => prev.map(aluno => 
                 aluno.rm === response.student.rm ? { ...aluno, presente: true } : aluno
             ));
-            toast.success(`Presença registrada: ${response.student.nome}`);
+            toast.success(`Presença registrada: ${response.student.nome}`);          
             setError(null);
             setTimeout(() => setScanResult(null), 3000);
         } catch (err) {

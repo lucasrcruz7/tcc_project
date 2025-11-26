@@ -24,17 +24,17 @@ function MainALuno() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/QRcode">
               <img className="w-16 h-16 sm:w-20 sm:h-20" src={QRCODE} alt="QR Code" />
-              <p className="text-center text-sm sm:text-base font-medium">QRCODE</p>
+              <p className="text-center text-sm sm:text-base font-medium">QR code</p>
             </Link>
 
             <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/Faltas">
               <img className="w-16 h-16 sm:w-20 sm:h-20" src={DOCUMENT} alt="DOCUMENT" />
-              <p className="text-center text-sm sm:text-base font-medium">FALTAS</p>
+              <p className="text-center text-sm sm:text-base font-medium">Minhas Presenças</p>
             </Link>
 
             <Link className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex flex-col items-center gap-4" to="/AlterarSenha">
               <span className="text-4xl sm:text-5xl">🔒</span>
-              <p className="text-center text-sm sm:text-base font-medium">ALTERAR SENHA</p>
+              <p className="text-center text-sm sm:text-base font-medium">Alterar Senha</p>
             </Link>
           </div>
         </div>
